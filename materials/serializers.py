@@ -1,9 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 
-from materials.models import Lesson
+from materials.models import Course
 
 
-class LessonSerializer(ModelSerializer):
+class CourseSerializer(ModelSerializer):
     class Meta:
-        model = Lesson
+        model = Course
         fields = '__all__'

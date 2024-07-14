@@ -12,7 +12,8 @@ class Course(models.Model):
     image = models.ImageField(
         upload_to='users/avatars',
         verbose_name='Превью ',
-        help_text='Укажите Превью'
+        help_text='Укажите Превью',
+        **NULLABLE
     )
     description = models.TextField(
         verbose_name='Название',
