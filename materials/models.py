@@ -30,12 +30,13 @@ class Lesson(models.Model):
         max_length=150,
         verbose_name='Название',
         help_text='Укажите название курса',
-        ** NULLABLE
+        **NULLABLE
     )
     image = models.ImageField(
         upload_to='users/avatars',
         verbose_name='Превью ',
-        help_text='Укажите Превью'
+        help_text='Укажите Превью',
+        **NULLABLE
     )
     description = models.TextField(
         verbose_name='Название',
@@ -55,7 +56,6 @@ class Lesson(models.Model):
         help_text='Укажите курс',
         **NULLABLE
     )
-
 
     class Meta:
         verbose_name = 'Урок'
