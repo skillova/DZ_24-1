@@ -1,0 +1,86 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$O7i1ZNx6uUWBlOPYjzuy39$boo9k0N2HMtJfviPKL5kqW6k7Asvb4RfSqMl1owrV3Y=",
+            "last_login": "2024-07-14T17:10:56.438Z",
+            "is_superuser": true,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-07-14T17:10:28.347Z",
+            "email": "admin@admin.admin",
+            "phone_number": null,
+            "country": null,
+            "avatar": "",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "password": "1",
+            "last_login": "2024-07-15T19:03:44Z",
+            "is_superuser": false,
+            "first_name": "Станислав",
+            "last_name": "Чуприненко",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-07-15T19:03:32Z",
+            "email": "skillova@yandex.ru",
+            "phone_number": null,
+            "country": "Россия",
+            "avatar": "",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "password": "1",
+            "last_login": "2024-07-14T19:10:32Z",
+            "is_superuser": false,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-07-15T19:10:19Z",
+            "email": "skillova@gmail.com",
+            "phone_number": null,
+            "country": "Россия",
+            "avatar": "",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.payment",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "date_of_payment": 2002,
+            "paid_course": 5,
+            "paid_lesson": 4,
+            "payment_amount": 30,
+            "payment_method": "cash"
+        }
+    },
+    {
+        "model": "users.payment",
+        "pk": 2,
+        "fields": {
+            "user": 3,
+            "date_of_payment": 2005,
+            "paid_course": 6,
+            "paid_lesson": 5,
+            "payment_amount": 50,
+            "payment_method": "transfer"
+        }
+    }
+]
