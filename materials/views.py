@@ -5,6 +5,16 @@ from materials.models import Course, Lesson
 from materials.serializers import CourseSerializer, LessonSerializer
 
 
+class CourseCreateApiView(CreateAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def perform_create(self, serializer):
+        course = serializer.save()
+        course.owner = self.request.user
+        course.save()
+
+
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -13,6 +23,11 @@ class CourseViewSet(ModelViewSet):
 class LessonCreateApiView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+
+    def perform_create(self, serializer):
+        lesson = serializer.save()
+        lesson.owner = self.request.user
+        lesson.save()
 
 
 class LessonListApiView(ListAPIView):
