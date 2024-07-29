@@ -77,3 +77,32 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'
+
+
+class Subscription(models.Model):
+    """ Модель подписки """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name="Пользователь"
+    )
+    course = models.ForeignKey(
+        "materials.Course",
+        on_delete=models.CASCADE,
+        related_name="Курс"
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def get_user_email(self):
+        return self.user.email
+
+    def __str__(self):
+        return f"{self.user.email} подписан на {self.course.name}."
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
+        unique_together = ('user', 'course')
