@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
@@ -61,25 +62,22 @@ class LessonDestroyApiView(DestroyAPIView):
     permission_classes = [~IsModerator | IsOwner]
 
 
-class SubscriptionViewSet(ModelViewSet):
+class SubscriptionCreateAPIView(APIView):
+    """Subscription create or delete endpoint"""
     serializer_class = SubscriptionSerializer
     queryset = Subscription.objects.all()
     permission_classes = [IsAuthenticated]
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         user = self.request.user
-        course_id = self.request.data('course')
-        course_item = generics.get_object_or_404(Course, pk=course_id)
+        course_id = self.request.data.get('course')
+        course = generics.get_object_or_404(Course, pk=course_id)
 
-        subs_item = Subscription.objects.filter(user=user, course=course_item)
-
-        # Если подписка у пользователя на этот курс есть - удаляем ее
+        subs_item = Subscription.objects.filter(user=user, course=course)
         if subs_item.exists():
-            Subscription.delete()
-            message = 'подписка удалена'
-        # Если подписки у пользователя на этот курс нет - создаем ее
+            subs_item.delete()
+            message = 'Подписка удалена'
         else:
-            Subscription.create(user=user, course=course_item)
-            message = 'подписка добавлена'
-        # Возвращаем ответ в API
+            Subscription.objects.create(user=user, course=course)
+            message = 'Подписка добавлена'
         return Response({"message": message})
