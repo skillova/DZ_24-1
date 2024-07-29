@@ -8,6 +8,7 @@ class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
+        validators = [YoutubeValidation(field="video")]
 
 
 class CourseSerializer(serializers.ModelSerializer):
