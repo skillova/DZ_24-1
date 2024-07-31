@@ -8,6 +8,7 @@ from users.serializers import UserSerializer, PaymentSerializer
 
 
 class UserCreateApiView(CreateAPIView):
+    """ User create endpoint """
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -19,26 +20,31 @@ class UserCreateApiView(CreateAPIView):
 
 
 class UserListApiView(ListAPIView):
+    """ User list endpoint """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserRetrieveApiView(RetrieveAPIView):
+    """ User one output endpoint """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserUpdateApiView(UpdateAPIView):
+    """ User update endpoint """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDestroyApiView(DestroyAPIView):
+    """ User delete endpoint """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class PaymentListApiView(ListAPIView):
+    """Payment list endpoint"""
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 

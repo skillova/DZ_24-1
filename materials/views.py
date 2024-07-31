@@ -12,6 +12,7 @@ from users.permissions import IsModerator, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
+    """ ViewSet for Course """
     pagination_class = MaterialPagination
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -27,6 +28,7 @@ class CourseViewSet(ModelViewSet):
 
 
 class LessonCreateApiView(CreateAPIView):
+    """ Lesson create endpoint """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [~IsModerator]
@@ -38,6 +40,7 @@ class LessonCreateApiView(CreateAPIView):
 
 
 class LessonListApiView(ListAPIView):
+    """ Lesson list endpoint """
     pagination_class = MaterialPagination
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
@@ -45,18 +48,21 @@ class LessonListApiView(ListAPIView):
 
 
 class LessonRetrieveApiView(RetrieveAPIView):
+    """ Lesson one output endpoint """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsModerator | IsOwner]
 
 
 class LessonUpdateApiView(UpdateAPIView):
+    """ Lesson update endpoint """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsModerator | IsOwner]
 
 
 class LessonDestroyApiView(DestroyAPIView):
+    """ Lesson delete endpoint """
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [~IsModerator | IsOwner]
