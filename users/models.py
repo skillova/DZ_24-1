@@ -52,7 +52,8 @@ class Payment(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Пользователь'
     )
-    date_of_payment = models.PositiveSmallIntegerField(
+    date_of_payment = models.DateTimeField(
+        auto_now_add=True,
         verbose_name='Дата оплаты'
     )
     paid_course = models.ForeignKey(
@@ -67,7 +68,10 @@ class Payment(models.Model):
         verbose_name='Урок',
         **NULLABLE
     )
-    payment_amount = models.PositiveBigIntegerField(
+    payment_amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
         verbose_name='Сумма оплаты'
     )
     payment_method = models.CharField(
@@ -75,6 +79,16 @@ class Payment(models.Model):
         default='transfer',
         choices=PAYMENT_METHOD,
         verbose_name='Способ оплаты'
+    )
+    session_id = models.CharField(
+        max_length=255,
+        verbose_name='ID сессии',
+        **NULLABLE
+    )
+    link = models.CharField(
+        max_length=400,
+        verbose_name='Ссылка на оплату',
+        **NULLABLE
     )
 
     def __str__(self):

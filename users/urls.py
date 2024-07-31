@@ -4,7 +4,7 @@ from rest_framework.routers import SimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from users.views import UserListApiView, UserRetrieveApiView, UserDestroyApiView, UserUpdateApiView, UserCreateApiView, \
-    PaymentListApiView
+    PaymentListApiView, PaymentCreateApiView
 from materials.apps import MaterialsConfig
 from materials.views import CourseViewSet
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path('payments/', PaymentListApiView.as_view(), name='payments_list'),
     path('login/', TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name='login'),
     path('token/refresh/', TokenRefreshView.as_view(permission_classes=(AllowAny,)), name='token_refresh'),
+    path('payment/', PaymentCreateApiView.as_view(), name='payments_create'),
 ]
 
 urlpatterns += router.urls
