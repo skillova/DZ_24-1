@@ -158,3 +158,11 @@ EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL")
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULE = {
+    'check_user_activity': {
+        'task': 'users.tasks.check_user_activity',  # Путь к задаче
+        'schedule': timedelta(days=30),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+}
