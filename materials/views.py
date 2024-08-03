@@ -8,6 +8,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView,
 from materials.models import Course, Lesson, Subscription
 from materials.paginators import MaterialPagination
 from materials.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from materials.tasks import send_email_task
 from users.permissions import IsModerator, IsOwner
 
 
@@ -24,7 +25,19 @@ class CourseViewSet(ModelViewSet):
             self.permission_classes = [IsModerator | IsOwner]
         elif self.action == 'destroy':
             self.permission_classes = [~IsModerator | IsOwner]
-        return super().get_permissions()
+        return super().get_permissions()\
+
+
+    def perform_create(self, serializer):
+        new_course = serializer.save()
+        new_course.owner = self.request.user
+        new_course.save()
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        course_id = instance.id
+        send_email_task(course_id)
+        return instance
 
 
 class LessonCreateApiView(CreateAPIView):
@@ -86,4 +99,5 @@ class SubscriptionCreateAPIView(APIView):
         else:
             Subscription.objects.create(user=user, course=course)
             message = 'Подписка добавлена'
+            send_email_task(course_id)
         return Response({"message": message})
